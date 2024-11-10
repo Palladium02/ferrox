@@ -23,5 +23,3 @@ The configuration is expected to be in JSON format.
 ```
 
 ## Planned features
-
-- some way of dynamically adding server to the pool with out restarting

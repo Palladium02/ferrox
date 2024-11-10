@@ -1,5 +1,6 @@
 use std::{env, fs};
 
+mod api;
 mod balancer;
 mod config;
 mod pool;
@@ -22,6 +23,8 @@ async fn main() {
         serde_json::from_str::<PartialConfig>(&read_config).expect("Failed to parse config file");
 
     LoadBalancer::new(Config::default().merge(user_config))
+        .expose_api()
+        .await
         .run()
         .await;
 }

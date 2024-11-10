@@ -2,7 +2,7 @@ use std::sync::Arc;
 
 use tokio::{net::TcpListener, sync::Mutex};
 
-use crate::{config::Config, pool::Pool, proxy::proxy, round_robin::RoundRobin};
+use crate::{api::create_api, config::Config, pool::Pool, proxy::proxy, round_robin::RoundRobin};
 
 pub struct LoadBalancer {
     config: Config,
@@ -42,6 +42,11 @@ impl LoadBalancer {
                 });
             }
         }
+    }
+
+    pub async fn expose_api(&self) -> &Self {
+        create_api(Arc::clone(&self.pool)).await;
+        self
     }
 
     fn health_check_loop(&self, pool: Arc<Pool>, interval: u64) {
