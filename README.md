@@ -23,3 +23,6 @@ The configuration is expected to be in JSON format.
 ```
 
 ## Planned features
+
+- gather metric
+  - use metrics to route traffic instead of round robin
