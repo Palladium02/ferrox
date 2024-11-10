@@ -7,6 +7,7 @@ mod proxy;
 mod round_robin;
 
 use balancer::LoadBalancer;
+use config::{Config, PartialConfig};
 
 #[tokio::main]
 async fn main() {
@@ -17,7 +18,10 @@ async fn main() {
     }
 
     let read_config = fs::read_to_string(&args[1]).expect("Failed to read config file");
-    let config = serde_json::from_str(&read_config).expect("Failed to parse config file");
+    let user_config =
+        serde_json::from_str::<PartialConfig>(&read_config).expect("Failed to parse config file");
 
-    LoadBalancer::new(config).run().await;
+    LoadBalancer::new(Config::default().merge(user_config))
+        .run()
+        .await;
 }

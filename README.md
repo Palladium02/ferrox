@@ -13,7 +13,6 @@ ferrox <path/to/config>
 ## Config
 
 The configuration is expected to be in JSON format.
-Note that at the moment all fields are required.
 
 ```
 {
